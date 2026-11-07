@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCP/UDP Client-Server Communication and Performance Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background-glow">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-grid"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- TOP NAVIGATION & STATUS BAR -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">TCP / UDP <span class="brand-badge">ANALYZER</span></div>
+          <div class="brand-sub">CLIENT-SERVER COMMUNICATION &amp; PERFORMANCE ANALYZER</div>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <div class="node-pills">
+          <div class="pill" id="pillLoopback" title="Loopback 127.0.0.1">
+            <span class="pill-dot" id="dotLoop"></span>
+            <span class="pill-label">127.0.0.1</span>
+          </div>
+          <div class="pill" id="pillTcpPort" title="TCP Port 5002">
+            <span class="pill-dot" id="dotTcp"></span>
+            <span class="pill-label">TCP :5002</span>
+          </div>
+          <div class="pill" id="pillUdpPort" title="UDP Port 5001">
+            <span class="pill-dot" id="dotUdp"></span>
+            <span class="pill-label">UDP :5001</span>
+          </div>
+          <div class="pill" id="pillApi" title="Backend Server API">
+            <span class="pill-dot" id="dotApi"></span>
+            <span class="pill-label">API READY</span>
+          </div>
+        </div>
+
+        <button type="button" class="icon-btn" id="audioToggle" title="Toggle Sound Effects">
+          <svg class="audio-icon audio-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg class="audio-icon audio-off hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- PROJECT OBJECTIVE & MEASURED OUTCOMES BANNER -->
+    <section class="project-banner">
+      <div class="project-info">
+        <span class="project-tag">PROJECT OBJECTIVE</span>
+        <span class="project-desc">Client-server application supporting TCP &amp; UDP communication to benchmark and compare transport behavior</span>
+      </div>
+      <div class="outcome-chips">
+        <span class="chip"><span class="chip-dot dot-1"></span> 1. Reliability</span>
+        <span class="chip"><span class="chip-dot dot-2"></span> 2. Latency</span>
+        <span class="chip"><span class="chip-dot dot-3"></span> 3. Throughput</span>
+        <span class="chip"><span class="chip-dot dot-4"></span> 4. Packet Loss</span>
+        <span class="chip"><span class="chip-dot dot-5"></span> 5. Communication Overhead</span>
+      </div>
+    </section>
+
+    <!-- HERO SPEEDOMETER & GO ACTION STAGE -->
+    <section class="hero-stage">
+      <div class="hero-grid">
+        <!-- HEAD-TO-HEAD COMPARATIVE SCORECARD -->
+        <div class="scorecard-card">
+          <div class="scorecard-header">
+            <div>
+              <div class="scorecard-badge">DIRECT COMPARISON</div>
+              <h3 class="scorecard-title">TCP vs UDP Protocol Scorecard</h3>
+              <p class="scorecard-sub">Measured comparison across all 5 project evaluation outcomes</p>
+            </div>
+            <div class="test-phase-pill" id="scorecardPhase">READY TO TEST</div>
+          </div>
+
+          <div class="scorecard-table">
+            <!-- Row 1: Reliability -->
+            <div class="score-row">
+              <div class="score-col-outcome">
+                <span class="outcome-num">01</span>
+                <div>
+                  <strong>Reliability</strong>
+                  <small>Delivery Guarantees</small>
+                </div>
+              </div>
+              <div class="score-col-proto col-tcp">
+                <span class="score-val">100% Guaranteed</span>
+                <span class="score-desc">3-Way SYN/ACK &bull; Seq tracking</span>
+              </div>
+              <div class="score-col-proto col-udp">
+                <span class="score-val">Best-Effort</span>
+                <span class="score-desc">Connectionless &bull; No retries</span>
+              </div>
+              <div class="score-col-verdict">
+                <span class="verdict-tag verdict-tcp">TCP WINS</span>
+              </div>
+            </div>
+
+            <!-- Row 2: Latency -->
+            <div class="score-row">
+              <div class="score-col-outcome">
+                <span class="outcome-num">02</span>
+                <div>
+                  <strong>Latency (RTT)</strong>
+                  <small>Round-Trip Response</small>
+                </div>
+              </div>
+              <div class="score-col-proto col-tcp">
+                <span class="score-val"><span id="scTcpLat">0.030</span> ms</span>
+                <span class="score-desc">Min: <span id="scTcpMinLat">0.012</span> ms</span>
+              </div>
+              <div class="score-col-proto col-udp">
+                <span class="score-val"><span id="scUdpLat">0.038</span> ms</span>
+                <span class="score-desc">Min: <span id="scUdpMinLat">0.030</span> ms</span>
+              </div>
+              <div class="score-col-verdict">
+                <span class="verdict-tag" id="scLatWinner">TIED</span>
+              </div>
+            </div>
+
+            <!-- Row 3: Throughput -->
+            <div class="score-row highlight-row">
+              <div class="score-col-outcome">
+                <span class="outcome-num">03</span>
+                <div>
+                  <strong>Throughput</strong>
+                  <small>Transmission Bandwidth</small>
+                </div>
+              </div>
+              <div class="score-col-proto col-tcp">
+                <span class="score-val val-cyan"><span id="scTcpThru">1207.34</span> Mbps</span>
+                <span class="score-desc"><span id="scTcpMBs">150.92</span> MB/s</span>
+              </div>
+              <div class="score-col-proto col-udp">
+                <span class="score-val val-violet"><span id="scUdpThru">1030.39</span> Mbps</span>
+                <span class="score-desc"><span id="scUdpMBs">128.80</span> MB/s</span>
+              </div>
+              <div class="score-col-verdict">
+                <span class="verdict-tag verdict-tcp" id="scThruWinner">TCP (1.2x)</span>
+              </div>
+            </div>
+
+            <!-- Row 4: Packet Loss -->
+            <div class="score-row">
+              <div class="score-col-outcome">
+                <span class="outcome-num">04</span>
+                <div>
+                  <strong>Packet Loss</strong>
+                  <small>Drop &amp; Recovery</small>
+                </div>
+              </div>
+              <div class="score-col-proto col-tcp">
+                <span class="score-val"><span id="scTcpLoss">0.00</span>% Loss</span>
+                <span class="score-desc">Guaranteed retransmission</span>
+              </div>
+              <div class="score-col-proto col-udp">
+                <span class="score-val"><span id="scUdpLoss">0.00</span>% Loss</span>
+                <span class="score-desc">Drops unrecovered</span>
+              </div>
+              <div class="score-col-verdict">
+                <span class="verdict-tag verdict-tcp" id="scLossWinner">TCP WINS</span>
+              </div>
+            </div>
+
+            <!-- Row 5: Communication Overhead -->
+            <div class="score-row">
+              <div class="score-col-outcome">
+                <span class="outcome-num">05</span>
+                <div>
+                  <strong>Comm. Overhead</strong>
+                  <small>Packet Headers</small>
+                </div>
+              </div>
+              <div class="score-col-proto col-tcp">
+                <span class="score-val">40 Bytes / pkt</span>
+                <span class="score-desc"><span id="scTcpEff">96.24</span>% payload efficiency</span>
+              </div>
+              <div class="score-col-proto col-udp">
+                <span class="score-val">28 Bytes / pkt</span>
+                <span class="score-desc"><span id="scUdpEff">97.34</span>% payload efficiency</span>
+              </div>
+              <div class="score-col-verdict">
+                <span class="verdict-tag verdict-udp" id="scEffWinner">UDP (30% LESS)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Analytical Takeaway -->
+          <div class="scorecard-takeaway">
+            <span class="takeaway-badge">CORE BEHAVIORAL TAKEAWAY</span>
+            <p id="takeawayText">Under symmetric streaming with no per-chunk stop-and-wait waits, TCP achieves 1,207 Mbps and UDP achieves 1,030 Mbps across local loopback. TCP leverages kernel stream coalescing to edge ahead in raw bandwidth while guaranteeing 100% reliability, while UDP maintains 30% lower protocol overhead.</p>
+          </div>
+        </div>
+
+        <!-- GO ACTION BUTTON & CONFIG -->
+        <div class="action-card">
+          <div class="go-button-wrapper">
+            <div class="go-radar-ring ring-1"></div>
+            <div class="go-radar-ring ring-2"></div>
+            <div class="go-radar-ring ring-3"></div>
+            <button type="button" class="go-btn" id="goBtn">
+              <div class="go-inner">
+                <span class="go-text">GO</span>
+                <span class="go-sub" id="goSub">START TEST</span>
+              </div>
+            </button>
+          </div>
+
+          <div class="target-card">
+            <div class="target-row">
+              <span class="target-title">Target Host:</span>
+              <span class="target-value" id="targetHost">127.0.0.1 (Local Loopback)</span>
+            </div>
+            <div class="target-row">
+              <span class="target-title">Payload Size:</span>
+              <span class="target-value">100 Packets &bull; 1.0 MB Stream</span>
+            </div>
+            <div class="target-row">
+              <span class="target-title">Last Benchmark:</span>
+              <span class="target-value" id="lastTestTime">Never</span>
+            </div>
+          </div>
+
+          <!-- Progress step tracker bar -->
+          <div class="test-progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="test-steps-label" id="testStepsLabel">Press GO to benchmark TCP vs UDP sockets</div>
+        </div>
+      </div>
+
+      <!-- QUICK KPI OVERVIEW RIBBON -->
+      <div class="kpi-ribbon">
+        <div class="kpi-box">
+          <div class="kpi-header">
+            <span class="kpi-icon icon-ping"></span>
+            <span class="kpi-title">MIN LATENCY</span>
+          </div>
+          <div class="kpi-val" id="kpiMinLat">—</div>
+          <div class="kpi-badge" id="kpiLatWinner">Waiting</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-header">
+            <span class="kpi-icon icon-jitter"></span>
+            <span class="kpi-title">JITTER / STABILITY</span>
+          </div>
+          <div class="kpi-val" id="kpiJitter">—</div>
+          <div class="kpi-badge" id="kpiJitterWinner">Waiting</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-header">
+            <span class="kpi-icon icon-speed"></span>
+            <span class="kpi-title">PEAK THROUGHPUT</span>
+          </div>
+          <div class="kpi-val" id="kpiSpeed">—</div>
+          <div class="kpi-badge" id="kpiSpeedWinner">Waiting</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-header">
+            <span class="kpi-icon icon-efficiency"></span>
+            <span class="kpi-title">PACKET LOSS</span>
+          </div>
+          <div class="kpi-val" id="kpiLoss">—</div>
+          <div class="kpi-badge" id="kpiLossWinner">Waiting</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERTICAL SECTION 1: DETAILED LATENCY & JITTER ANALYSIS -->
+    <section class="analysis-section" id="sectionLatency">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-badge badge-cyan">SECTION 01</div>
+          <h2>DETAILED LATENCY & JITTER TELEMETRY</h2>
+          <p class="section-desc">Round-trip time (RTT), response variance, percentiles (P50/P95/P99), and packet loss</p>
+        </div>
+        <div class="section-action">
+          <span class="tag-status" id="latStatusTag">Awaiting Test</span>
+        </div>
+      </div>
+
+      <!-- SIDE-BY-SIDE LATENCY CARDS -->
+      <div class="protocol-grid">
+        <!-- TCP LATENCY CARD -->
+        <div class="proto-card proto-tcp">
+          <div class="proto-card-header">
+            <div class="proto-identity">
+              <span class="proto-tag tag-tcp">TCP</span>
+              <span class="proto-name">Transmission Control Protocol</span>
+            </div>
+            <span class="badge-verdict" id="tcpLatVerdict">—</span>
+          </div>
+
+          <div class="primary-metric-row">
+            <div>
+              <div class="primary-metric-label">AVERAGE LATENCY</div>
+              <div class="primary-metric-val"><span id="tcpAvgLat">0.000</span> <span class="unit">ms</span></div>
+            </div>
+            <div class="text-right">
+              <div class="primary-metric-label">JITTER (VARIANCE)</div>
+              <div class="primary-metric-val val-accent-cyan"><span id="tcpJitter">0.000</span> <span class="unit">ms</span></div>
+            </div>
+          </div>
+
+          <!-- DETAILED TELEMETRY GRID -->
+          <div class="stats-subgrid">
+            <div class="stat-cell">
+              <span class="stat-name">Minimum RTT</span>
+              <strong class="stat-num" id="tcpMinLat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Median (P50)</span>
+              <strong class="stat-num" id="tcpP50Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">95th Percentile (P95)</span>
+              <strong class="stat-num" id="tcpP95Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">99th Percentile (P99)</span>
+              <strong class="stat-num" id="tcpP99Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Maximum RTT</span>
+              <strong class="stat-num" id="tcpMaxLat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Packet Loss Rate</span>
+              <strong class="stat-num" id="tcpLossRate">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Packets Sent / Recv</span>
+              <strong class="stat-num" id="tcpPktsCount">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Connection Model</span>
+              <strong class="stat-num">3-Way Handshake</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- UDP LATENCY CARD -->
+        <div class="proto-card proto-udp">
+          <div class="proto-card-header">
+            <div class="proto-identity">
+              <span class="proto-tag tag-udp">UDP</span>
+              <span class="proto-name">User Datagram Protocol</span>
+            </div>
+            <span class="badge-verdict" id="udpLatVerdict">—</span>
+          </div>
+
+          <div class="primary-metric-row">
+            <div>
+              <div class="primary-metric-label">AVERAGE RTT</div>
+              <div class="primary-metric-val"><span id="udpAvgLat">0.000</span> <span class="unit">ms</span></div>
+            </div>
+            <div class="text-right">
+              <div class="primary-metric-label">JITTER (VARIANCE)</div>
+              <div class="primary-metric-val val-accent-violet"><span id="udpJitter">0.000</span> <span class="unit">ms</span></div>
+            </div>
+          </div>
+
+          <!-- DETAILED TELEMETRY GRID -->
+          <div class="stats-subgrid">
+            <div class="stat-cell">
+              <span class="stat-name">Minimum RTT</span>
+              <strong class="stat-num" id="udpMinLat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Median (P50)</span>
+              <strong class="stat-num" id="udpP50Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">95th Percentile (P95)</span>
+              <strong class="stat-num" id="udpP95Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">99th Percentile (P99)</span>
+              <strong class="stat-num" id="udpP99Lat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Maximum RTT</span>
+              <strong class="stat-num" id="udpMaxLat">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Packet Loss Rate</span>
+              <strong class="stat-num" id="udpLossRate">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Packets Sent / Recv</span>
+              <strong class="stat-num" id="udpPktsCount">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Connection Model</span>
+              <strong class="stat-num">Connectionless</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE PING SAMPLES WAVEFORM CHART -->
+      <div class="chart-wrapper">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">PACKET-BY-PACKET LATENCY WAVEFORM</div>
+            <div class="chart-sub">Sampled round-trip time across 100 consecutive requests</div>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-dot dot-tcp"></span> TCP Latency</span>
+            <span class="legend-item"><span class="legend-dot dot-udp"></span> UDP Latency</span>
+          </div>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvasLatency" width="1000" height="240"></canvas>
+          <div class="chart-tooltip" id="tooltipLatency"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERTICAL SECTION 2: DETAILED THROUGHPUT & BANDWIDTH ANALYSIS -->
+    <section class="analysis-section" id="sectionThroughput">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-badge badge-violet">SECTION 02</div>
+          <h2>THROUGHPUT, BANDWIDTH & PROTOCOL OVERHEAD</h2>
+          <p class="section-desc">Transfer rates in Mbps and MB/s, chunk metrics, packet header overhead & payload efficiency</p>
+        </div>
+        <div class="section-action">
+          <span class="tag-status" id="thruStatusTag">Awaiting Test</span>
+        </div>
+      </div>
+
+      <!-- SIDE-BY-SIDE THROUGHPUT CARDS -->
+      <div class="protocol-grid">
+        <!-- TCP THROUGHPUT CARD -->
+        <div class="proto-card proto-tcp">
+          <div class="proto-card-header">
+            <div class="proto-identity">
+              <span class="proto-tag tag-tcp">TCP</span>
+              <span class="proto-name">Stream Throughput</span>
+            </div>
+            <span class="badge-verdict" id="tcpThruVerdict">—</span>
+          </div>
+
+          <div class="primary-metric-row">
+            <div>
+              <div class="primary-metric-label">BANDWIDTH</div>
+              <div class="primary-metric-val"><span id="tcpThroughput">0.00</span> <span class="unit">Mbps</span></div>
+            </div>
+            <div class="text-right">
+              <div class="primary-metric-label">TRANSFER RATE</div>
+              <div class="primary-metric-val val-accent-cyan"><span id="tcpThroughputMBs">0.00</span> <span class="unit">MB/s</span></div>
+            </div>
+          </div>
+
+          <div class="stats-subgrid">
+            <div class="stat-cell">
+              <span class="stat-name">Peak Bandwidth</span>
+              <strong class="stat-num" id="tcpPeakSpeed">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Data Transferred</span>
+              <strong class="stat-num" id="tcpDataMb">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Successful Chunks</span>
+              <strong class="stat-num" id="tcpChunks">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Elapsed Time</span>
+              <strong class="stat-num" id="tcpTime">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Header Overhead</span>
+              <strong class="stat-num">40 B / pkt</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Payload Efficiency</span>
+              <strong class="stat-num" id="tcpEfficiency">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Total Overhead Data</span>
+              <strong class="stat-num" id="tcpTotalOverhead">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Flow & Congestion</span>
+              <strong class="stat-num">Sliding Window</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- UDP THROUGHPUT CARD -->
+        <div class="proto-card proto-udp">
+          <div class="proto-card-header">
+            <div class="proto-identity">
+              <span class="proto-tag tag-udp">UDP</span>
+              <span class="proto-name">Datagram Throughput</span>
+            </div>
+            <span class="badge-verdict" id="udpThruVerdict">—</span>
+          </div>
+
+          <div class="primary-metric-row">
+            <div>
+              <div class="primary-metric-label">BANDWIDTH</div>
+              <div class="primary-metric-val"><span id="udpThroughput">0.00</span> <span class="unit">Mbps</span></div>
+            </div>
+            <div class="text-right">
+              <div class="primary-metric-label">TRANSFER RATE</div>
+              <div class="primary-metric-val val-accent-violet"><span id="udpThroughputMBs">0.00</span> <span class="unit">MB/s</span></div>
+            </div>
+          </div>
+
+          <div class="stats-subgrid">
+            <div class="stat-cell">
+              <span class="stat-name">Peak Bandwidth</span>
+              <strong class="stat-num" id="udpPeakSpeed">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Data Transferred</span>
+              <strong class="stat-num" id="udpDataMb">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Successful Chunks</span>
+              <strong class="stat-num" id="udpChunks">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Elapsed Time</span>
+              <strong class="stat-num" id="udpTime">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Header Overhead</span>
+              <strong class="stat-num">28 B / pkt</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Payload Efficiency</span>
+              <strong class="stat-num" id="udpEfficiency">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Total Overhead Data</span>
+              <strong class="stat-num" id="udpTotalOverhead">—</strong>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-name">Flow & Congestion</span>
+              <strong class="stat-num">None (Raw)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE SPEED CURVE CHART -->
+      <div class="chart-wrapper">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">DYNAMIC THROUGHPUT PROFILE CURVE</div>
+            <div class="chart-sub">Instantaneous transfer speed (Mbps) across the 1MB data payload stream</div>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-dot dot-tcp"></span> TCP Speed Curve</span>
+            <span class="legend-item"><span class="legend-dot dot-udp"></span> UDP Speed Curve</span>
+          </div>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvasThroughput" width="1000" height="240"></canvas>
+          <div class="chart-tooltip" id="tooltipThroughput"></div>
+        </div>
+      </div>
+
+      <!-- PROTOCOL HEADER OVERHEAD VISUALIZER -->
+      <div class="overhead-card">
+        <div class="overhead-header">
+          <div class="overhead-title">TRANSPORT LAYER PACKET ENCAPSULATION BREAKDOWN</div>
+          <div class="overhead-desc">Per-packet header size vs payload comparison on standard 1024-byte chunks</div>
+        </div>
+
+        <div class="overhead-bars">
+          <div class="overhead-row">
+            <div class="overhead-label-col">
+              <strong>TCP Packet</strong>
+              <span>1064 Bytes Total</span>
+            </div>
+            <div class="overhead-bar-track">
+              <div class="bar-chunk bar-ip" style="width: 1.88%;" title="IPv4 Header: 20 Bytes">20B IP</div>
+              <div class="bar-chunk bar-tcp-hdr" style="width: 1.88%;" title="TCP Header: 20 Bytes">20B TCP</div>
+              <div class="bar-chunk bar-payload" style="width: 96.24%;" title="Payload Data: 1024 Bytes">1024 Bytes Payload (96.24% Efficiency)</div>
+            </div>
+          </div>
+
+          <div class="overhead-row">
+            <div class="overhead-label-col">
+              <strong>UDP Packet</strong>
+              <span>1052 Bytes Total</span>
+            </div>
+            <div class="overhead-bar-track">
+              <div class="bar-chunk bar-ip" style="width: 1.90%;" title="IPv4 Header: 20 Bytes">20B IP</div>
+              <div class="bar-chunk bar-udp-hdr" style="width: 0.76%;" title="UDP Header: 8 Bytes">8B UDP</div>
+              <div class="bar-chunk bar-payload" style="width: 97.34%;" title="Payload Data: 1024 Bytes">1024 Bytes Payload (97.34% Efficiency)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERTICAL SECTION 3: PROTOCOL ARCHITECTURE COMPARISON MATRIX -->
+    <section class="analysis-section" id="sectionMatrix">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-badge badge-green">SECTION 03</div>
+          <h2>ARCHITECTURAL COMPARISON & SPECIFICATIONS</h2>
+          <p class="section-desc">Side-by-side technical evaluation of transport protocols with measured benchmarks</p>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">Architectural Property</th>
+              <th style="width: 36%;" class="th-tcp">
+                <span class="table-proto-tag tag-tcp">TCP</span>
+                <span>Transmission Control Protocol</span>
+              </th>
+              <th style="width: 36%;" class="th-udp">
+                <span class="table-proto-tag tag-udp">UDP</span>
+                <span>User Datagram Protocol</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="matrixBody">
+            <tr>
+              <td><strong>Connection Paradigm</strong></td>
+              <td>Connection-oriented (3-way SYN, SYN-ACK, ACK)</td>
+              <td>Connectionless (Immediate datagram push)</td>
+            </tr>
+            <tr>
+              <td><strong>Delivery Guarantee</strong></td>
+              <td>Guaranteed, strictly in-order, retransmission on loss</td>
+              <td>Best-effort, unordered, no built-in retransmissions</td>
+            </tr>
+            <tr>
+              <td><strong>Header Size</strong></td>
+              <td>20 to 60 bytes (flags, seq, ack, window)</td>
+              <td>Fixed 8 bytes (ports, length, checksum)</td>
+            </tr>
+            <tr>
+              <td><strong>Flow & Congestion Control</strong></td>
+              <td>Yes (Sliding window, slow-start, AIMD)</td>
+              <td>None (Transmits at application burst rate)</td>
+            </tr>
+            <tr>
+              <td><strong>Measured Avg Latency</strong></td>
+              <td id="mTcpAvgLat" class="val-mono">—</td>
+              <td id="mUdpAvgLat" class="val-mono">—</td>
+            </tr>
+            <tr>
+              <td><strong>Measured Jitter (StdDev)</strong></td>
+              <td id="mTcpJitter" class="val-mono">—</td>
+              <td id="mUdpJitter" class="val-mono">—</td>
+            </tr>
+            <tr>
+              <td><strong>Measured Bandwidth</strong></td>
+              <td id="mTcpThru" class="val-mono">—</td>
+              <td id="mUdpThru" class="val-mono">—</td>
+            </tr>
+            <tr>
+              <td><strong>Packet Loss</strong></td>
+              <td id="mTcpLoss" class="val-mono">—</td>
+              <td id="mUdpLoss" class="val-mono">—</td>
+            </tr>
+            <tr>
+              <td><strong>Payload Efficiency</strong></td>
+              <td id="mTcpEff" class="val-mono">96.24%</td>
+              <td id="mUdpEff" class="val-mono">97.34%</td>
+            </tr>
+            <tr>
+              <td><strong>Prime Industry Use Cases</strong></td>
+              <td><span class="use-case-tag">Web Browsing (HTTP/1,2)</span> <span class="use-case-tag">Banking</span> <span class="use-case-tag">File Transfer</span></td>
+              <td><span class="use-case-tag">Multiplayer Gaming</span> <span class="use-case-tag">VoIP & Zoom</span> <span class="use-case-tag">DNS</span> <span class="use-case-tag">QUIC</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VERTICAL SECTION 4: LIVE LOGS & EXPORT BAR -->
+    <section class="analysis-section" id="sectionExport">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-badge badge-amber">SECTION 04</div>
+          <h2>TELEMETRY CONSOLE & EXPORT CENTER</h2>
+          <p class="section-desc">Real-time socket execution events, machine-readable datasets & reporting</p>
+        </div>
+      </div>
+
+      <div class="terminal-card">
+        <div class="terminal-top">
+          <div class="terminal-dots">
+            <span class="t-dot t-red"></span>
+            <span class="t-dot t-yellow"></span>
+            <span class="t-dot t-green"></span>
+          </div>
+          <span class="terminal-title">tcp-udp-analyzer.log</span>
+          <button type="button" class="btn-clear-log" id="btnClearLog">Clear Log</button>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="term-line term-dim">[SYSTEM] TCP/UDP Client-Server Performance Analyzer initialized.</div>
+          <div class="term-line term-dim">[SYSTEM] Measuring Reliability, Latency, Throughput, Packet Loss &amp; Overhead...</div>
+        </div>
+      </div>
+
+      <div class="export-bar">
+        <button type="button" class="btn-export" id="btnExportJson">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export JSON Report
+        </button>
+        <button type="button" class="btn-export" id="btnExportCsv">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          Export CSV Dataset
+        </button>
+        <button type="button" class="btn-export" id="btnCopySummary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Benchmark Summary
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <p>TCP/UDP Client-Server Communication and Performance Analyzer &bull; Measuring Reliability, Latency, Throughput, Packet Loss and Overhead</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

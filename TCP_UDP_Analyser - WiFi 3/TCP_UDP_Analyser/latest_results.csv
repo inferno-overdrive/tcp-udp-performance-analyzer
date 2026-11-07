@@ -1,0 +1,20 @@
+Category,Metric,TCP,UDP,Unit
+Latency,Average Latency / RTT,0.046,0.054,ms
+Latency,Minimum Latency,0.023,0.032,ms
+Latency,Maximum Latency,0.333,0.483,ms
+Latency,Median (P50) Latency,0.028,0.034,ms
+Latency,95th Percentile (P95),0.131,0.153,ms
+Latency,99th Percentile (P99),0.333,0.483,ms
+Stability,Jitter (StdDev),0.043,0.055,ms
+Reliability,Packets Sent,100,100,packets
+Reliability,Packets Received,100,100,packets
+Reliability,Packet Loss,0.0,0.0,%
+Throughput,Bandwidth / Throughput,1282.03,974.23,Mbps
+Throughput,Transfer Rate,160.25,121.78,MB/s
+Throughput,Peak Throughput,3024.74,1127.02,Mbps
+Throughput,Data Transferred,1.0,1.0,MB
+Throughput,Successful Chunks,976/976,976/976,chunks
+Throughput,Elapsed Time,0.0062,0.0082,s
+Overhead,Header Size (Transport + IP),40,28,bytes
+Overhead,Total Overhead Generated,39040,27328,bytes
+Overhead,Payload Efficiency,96.24,97.34,%
