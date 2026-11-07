@@ -17,7 +17,7 @@ UDP_SERVER = os.path.join(BASE_DIR, "udp_server.py")
 UDP_CLIENT = os.path.join(BASE_DIR, "udp_client.py")
 
 # Remote computer running the TCP/UDP servers.
-# Override with: REMOTE_HOST=10.125.39.222 python analyzer.py
+# Override with: REMOTE_HOST=10.125.39.222 python backend/analyzer.py
 REMOTE_HOST = os.environ.get("REMOTE_HOST", "10.125.39.222")
 
 def start_server(script):

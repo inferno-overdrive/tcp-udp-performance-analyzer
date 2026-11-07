@@ -226,6 +226,15 @@ latest_results.csv
 # macOS
 .DS_Store
 
+# Windows
+Thumbs.db
+Desktop.ini
+
 # IDE settings
 .idea/
 .vscode/
+
+# Editor backup and swap files
+*.swp
+*.swo
+*~

@@ -720,7 +720,7 @@ async function refreshConnectivity() {
 
     if (!isRunning && els.scorecardPhase && els.scorecardPhase.textContent !== "SERVER OFFLINE") {
       setBenchmarkPhase("SERVER OFFLINE", "failed");
-      els.testStepsLabel.textContent = "Backend offline. Run 'python server.py' or double-click 'start_analyzer.bat'.";
+      els.testStepsLabel.textContent = "Backend offline. Run 'python backend/server.py' or double-click 'backend/start_analyzer.bat'.";
     }
   }
 }
@@ -781,7 +781,7 @@ async function startBenchmark() {
   } else {
     const isFetchErr = !data || data.error === "Failed to fetch" || !data.ok;
     const errMsg = isFetchErr
-      ? "Backend server is offline! Run 'python server.py' or double-click 'start_analyzer.bat'."
+      ? "Backend server is offline! Run 'python backend/server.py' or double-click 'backend/start_analyzer.bat'."
       : (data.error || "Benchmark execution failed.");
     logTerminal(`[ERROR] ${errMsg}`, "term-err");
     setBenchmarkPhase("SERVER OFFLINE", "failed");

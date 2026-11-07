@@ -12,7 +12,8 @@ import analyzer
 HOST = "127.0.0.1"
 PORT = 8080
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+FRONTEND_DIR = os.path.join(PROJECT_DIR, "frontend")
 
 run_lock = threading.Lock()
 run_state = {

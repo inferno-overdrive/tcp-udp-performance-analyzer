@@ -43,14 +43,16 @@ tcp-udp-performance-analyzer/
 │   ├── styles.css
 │   └── app.js
 │
-├── tcp_client.py
-├── tcp_server.py
-├── udp_client.py
-├── udp_server.py
-│
-├── analyzer.py
-├── server.py
-├── start_analyzer.bat
+├── backend/
+│   ├── analyzer.py
+│   ├── server.py
+│   ├── tcp_client.py
+│   ├── tcp_server.py
+│   ├── udp_client.py
+│   ├── udp_server.py
+│   ├── start_analyzer.bat
+│   ├── latest_results.json  # generated locally; ignored by Git
+│   └── latest_results.csv   # generated locally; ignored by Git
 │
 ├── .gitignore
 ├── README.md
@@ -78,7 +80,7 @@ tcp-udp-performance-analyzer/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/tcp-udp-performance-analyzer.git
+git clone https://github.com/inferno-overdrive/tcp-udp-performance-analyzer.git
 ```
 
 ```bash
@@ -92,13 +94,13 @@ On the computer that will act as the TCP/UDP server, open two terminals.
 Start the TCP server:
 
 ```bash
-python tcp_server.py
+python backend/tcp_server.py
 ```
 
 Start the UDP server in another terminal:
 
 ```bash
-python udp_server.py
+python backend/udp_server.py
 ```
 
 ### 3. Configure the Target Host
@@ -122,7 +124,7 @@ Replace `127.0.0.1` with the server computer's LAN IP address when testing acros
 ### 4. Start the Web Application
 
 ```bash
-python server.py
+python backend/server.py
 ```
 
 Open the following URL in your browser:
