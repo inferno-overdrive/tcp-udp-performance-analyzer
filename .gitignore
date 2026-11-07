@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Generated TCP/UDP benchmark results
+latest_results.json
+latest_results.csv
+
+# macOS
+.DS_Store
+
+# IDE settings
+.idea/
+.vscode/
